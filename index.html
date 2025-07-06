@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>V's Stylish Form</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="form-container">
+    <form id="myForm" novalidate>
+      <h2>Register Now</h2>
+
+      <label>Email</label>
+      <input type="email" id="email" placeholder="you@example.com" required/>
+
+      <label>Phone</label>
+      <input type="text" id="phone" placeholder="10-digit number" required/>
+
+      <label>Password</label>
+      <div class="password-wrapper">
+        <input type="password" id="password" required/>
+        <button type="button" id="togglePwd">👁</button>
+      </div>
+
+      <div id="message" class="message-box"></div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
