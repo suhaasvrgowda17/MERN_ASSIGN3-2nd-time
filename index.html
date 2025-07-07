@@ -4,7 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>V's Stylish Form</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .form-container {
+      width: 300px;
+      margin: 50px auto;
+      font-family: Arial, sans-serif;
+    }
+    input, button {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      font-size: 14px;
+    }
+    .password-wrapper {
+      position: relative;
+    }
+    .password-wrapper button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 40px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <div class="form-container">
@@ -15,19 +42,92 @@
       <input type="email" id="email" placeholder="you@example.com" required/>
 
       <label>Phone</label>
-      <input type="text" id="phone" placeholder="10-digit number" required/>
+      <input
+        type="text"
+        id="phone"
+        maxlength="10"
+        placeholder="Enter 10-digit phone number"
+        required
+      />
 
       <label>Password</label>
       <div class="password-wrapper">
-        <input type="password" id="password" required/>
+        <input type="password" id="password" required />
         <button type="button" id="togglePwd">👁</button>
       </div>
 
-      <div id="message" class="message-box"></div>
+      <label>Confirm Password</label>
+      <div class="password-wrapper">
+        <input type="password" id="confirmPassword" required />
+        <button type="button" id="toggleConfirmPwd">👁</button>
+      </div>
 
       <button type="submit">Submit</button>
     </form>
   </div>
-  <script src="script.js"></script>
+
+  <script>
+    // Only allow digits in phone number
+    const phoneInput = document.getElementById("phone");
+    phoneInput.addEventListener("input", function () {
+      this.value = this.value.replace(/\D/g, ""); // Only keep digits
+    });
+
+    // Toggle password visibility
+    document.getElementById("togglePwd").addEventListener("click", function () {
+      const pwd = document.getElementById("password");
+      pwd.type = pwd.type === "password" ? "text" : "password";
+    });
+
+    document.getElementById("toggleConfirmPwd").addEventListener("click", function () {
+      const confirmPwd = document.getElementById("confirmPassword");
+      confirmPwd.type = confirmPwd.type === "password" ? "text" : "password";
+    });
+
+    // Validate form on submit
+    document.getElementById("myForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (email === "") {
+        alert("Email is required.");
+        return;
+      }
+
+      if (phone === "") {
+        alert("Phone number is required.");
+        return;
+      }
+
+      if (phone.length !== 10) {
+        alert("Phone number must be exactly 10 digits.");
+        return;
+      }
+
+      if (password === "") {
+        alert("Password is required.");
+        return;
+      }
+
+      if (confirmPassword === "") {
+        alert("Confirm Password is required.");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      alert("Form submitted successfully!");
+      // You can uncomment the next line if you want actual submission
+      // this.submit();
+    });
+  </script>
 </body>
 </html>
+
